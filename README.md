@@ -1,5 +1,5 @@
-JavaFX Hello World Demo
-=======================
+JavaFX Table Demo
+=================
 
-Show a window with `Hello, JavaFX` label.
+Show a table with data.
 
