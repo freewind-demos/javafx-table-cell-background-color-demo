@@ -1,35 +1,24 @@
 package demo;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
-
-import static javafx.collections.FXCollections.observableArrayList;
+import javafx.scene.paint.Color;
 
 public class Person {
     private final SimpleStringProperty name;
-    private final SimpleIntegerProperty number;
-    private final SimpleListProperty<String> fruits;
+    private final SimpleObjectProperty<Color> color;
 
-    Person(String name, Integer number, List<String> fruits) {
+    Person(String name, Color color) {
         this.name = new SimpleStringProperty(name);
-        this.number = new SimpleIntegerProperty(number);
-        this.fruits = new SimpleListProperty<>(observableArrayList(fruits));
+        this.color = new SimpleObjectProperty<>(color);
     }
 
     public String getName() {
         return this.name.get();
     }
 
-    public int getNumber() {
-        return number.get();
-    }
-
-    public String getFruits() {
-        return StringUtils.join(fruits.get(), ", ");
+    public Color getColor() {
+        return color.get();
     }
 
 }

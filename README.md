@@ -1,5 +1,5 @@
-JavaFX Table Demo
-=================
+JavaFX Table Cell Background Color Demo
+=======================================
 
-Show a table with data.
+How to set table cell background color by condition.
 

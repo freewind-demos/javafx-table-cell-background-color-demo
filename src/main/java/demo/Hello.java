@@ -2,12 +2,15 @@ package demo;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -25,36 +28,33 @@ public class Hello extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Hello");
-        VBox root = new VBox() {{
-            getChildren().add(createTable());
-            getChildren().add(createAddButton());
-        }};
+        TableView<Person> root = createTable();
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
     }
 
     private final ObservableList<Person> data = observableArrayList(
-            new Person("AAA", 23, observableArrayList("Apple", "Banana")),
-            new Person("BBB", 11, observableArrayList("Pear")),
-            new Person("DDD", 34, observableArrayList("Orange"))
+            new Person("AAA", Color.RED),
+            new Person("BBB", Color.BLUE),
+            new Person("CCC", Color.YELLOW)
     );
-
-    private Button createAddButton() {
-        return new Button("Add Data") {{
-            setOnAction(event -> data.add(new Person("NEW", new Random().nextInt(100), Arrays.asList("date", "watermelon"))));
-        }};
-    }
 
     private TableView<Person> createTable() {
         return new TableView<Person>() {{
             getColumns().add(new TableColumn<Person, String>("Name") {{
                 setCellValueFactory(new PropertyValueFactory<>("name"));
             }});
-            getColumns().add(new TableColumn<Person, Integer>("Number") {{
-                setCellValueFactory(new PropertyValueFactory<>("number"));
-            }});
-            getColumns().add(new TableColumn<Person, List<String>>("Fruits") {{
-                setCellValueFactory(new PropertyValueFactory<>("fruits"));
+            getColumns().add(new TableColumn<Person, Color>("Color") {{
+                setCellValueFactory(new PropertyValueFactory<>("color"));
+                setCellFactory(param -> new TableCell<Person, Color>() {
+                    @Override
+                    protected void updateItem(Color item, boolean empty) {
+                        if (!empty) {
+                            this.setBackground(new Background(new BackgroundFill(item, CornerRadii.EMPTY, Insets.EMPTY)));
+                            setText(item.toString());
+                        }
+                    }
+                });
             }});
             setItems(data);
         }};
